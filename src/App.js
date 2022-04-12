@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Navbar, HomePage, Exchanges, Cryptocurrencies, CryptoDetails, News } from './components';
 
-import { getCryptos } from './actions/cripto';
+import { getCryptos } from './actions/crypto';
 
 import './App.css';
 

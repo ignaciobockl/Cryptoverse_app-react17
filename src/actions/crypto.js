@@ -10,12 +10,12 @@ const loadData = ( cryptoApi ) => ({
     payload: cryptoApi
 });
 
-export const getCryptos = () => {
+export const getCryptos = ( count ) => {
     return async(dispatch) => {
         try {
             
             const resp = await fetchWithoutToken(
-                'coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0', 
+                `coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers=1&orderBy=marketCap&orderDirection=desc&limit=${count}&offset=0`, 
                 undefined, 
                 'GET');
             const body = await resp.json();

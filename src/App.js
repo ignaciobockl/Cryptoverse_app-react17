@@ -1,23 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { Layout, Typography, Space } from 'antd';
-import { useDispatch } from 'react-redux';
 
 import { Navbar, HomePage, Exchanges, Cryptocurrencies, CryptoDetails, News } from './components';
-
-import { getCryptos } from './actions/crypto';
 
 import './App.css';
 
 
 
 const App = () => {
-    
-    const dispatch = useDispatch(); 
-
-    useEffect(() => {
-        dispatch( getCryptos() );
-    }, []);
 
     return (
         <div className='app'>

@@ -10,13 +10,13 @@ const loadData = ( bingNewsApi ) => ({
     payload: bingNewsApi
 });
 
-export const getNews = () => {
+export const getNews = ( count ) => {
     return async(dispatch) => {
 
         try {
             
             const resp = await fetchWithoutTokenBingNewsApi(
-                `news?safeSearch=Off&textFormat=Raw`,
+                `news?safeSearch=Off&textFormat=Raw&count=${count}`,
                 undefined,
                 'GET'
             );

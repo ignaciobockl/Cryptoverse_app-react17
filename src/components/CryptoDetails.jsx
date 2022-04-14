@@ -3,9 +3,12 @@ import React from 'react';
 
 
 const CryptoDetails = () => {
-  return (
-    <div>CryptoDetails</div>
-  )
+
+    // 4:21:15
+
+    return (
+        <div>CryptoDetails</div>
+    )
 }
 
 export default CryptoDetails;

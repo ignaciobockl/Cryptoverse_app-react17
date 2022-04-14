@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getNews } from '../actions/bingNews';
+import { getCryptos } from '../actions/crypto';
 
 
 const { Text, Title } = Typography;
@@ -15,20 +16,49 @@ const News = ({ simplified }) => {
     
     const count = simplified ? 6 : 12;
 
+    const [ newsCategory, setNewsCategory ] = useState('Cryptocurrency');
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch( getNews( count ) );
-    }, []);
+        dispatch( getNews( count, newsCategory ) );
+        dispatch( getCryptos( 100 ) );
+    }, [ newsCategory ]);
 
     const { value } = useSelector( state => state.bingNews );
-
-    // 4:16:41
+    const { data: cryptosList } = useSelector( state => state.crypto );
 
     if ( !value ) return 'Loading... ';
 
     return (
+
         <Row gutter={[ 24, 24 ]}>
+
+            {
+                !simplified && (
+                    <Col span={ 24 }>
+                        <Select
+                            className='select-news'
+                            filterOption={ (input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }
+                            onChange={ (value) => setNewsCategory(value) }
+                            optionFilterProp='children'
+                            placeholder='Select a Crypto'
+                            showSearch
+                        >
+                            <Option value='Cryptocurrency'>
+                                Cryptocurrency
+                            </Option>
+                            { 
+                                cryptosList?.coins.map((coin) => 
+                                    <Option value={ coin.name } key={ coin.uuid }>
+                                        { coin.name }
+                                    </Option>)
+                            }
+                        </Select>
+                    </Col>
+                )
+            }
+
             {
                 value.map((news, index) => (
                     <Col xs={ 24 } sm={ 12 } lg={ 8 } key={ index }>

@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { Layout, Typography, Space } from 'antd';
+import { useDispatch } from 'react-redux';
 
 import { Navbar, HomePage, Exchanges, Cryptocurrencies, CryptoDetails, News } from './components';
+
+import { getNews } from './actions/bingNews';
 
 import './App.css';
 
 
 
 const App = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch( getNews() );
+    }, []);
+    
 
     return (
         <div className='app'>

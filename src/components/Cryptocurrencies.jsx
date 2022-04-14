@@ -20,7 +20,15 @@ const Cryptocurrencies = ({ simplified }) => {
     }, []);
 
     const { data, status } = useSelector( state => state.crypto );
+
     const [ cryptos, setCryptos ] = useState( data?.coins );
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
+        const filteredData = data?.coins.filter((coin) => coin.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        setCryptos( filteredData );
+    }, [ searchTerm ])
+    
 
     useEffect(() => {
         setCryptos( data?.coins );
@@ -28,6 +36,18 @@ const Cryptocurrencies = ({ simplified }) => {
 
     return (
         <>
+
+            {
+                !simplified && (
+                    <div className='search-crypto'>
+                        <Input
+                            onChange={ (e) => setSearchTerm(e.target.value) }
+                            placeholder='Search Cryptocurrency'
+                        />
+                    </div>
+                )
+            }
+
             <Row gutters={[ 32, 32 ]} className='crypto-card-container'>
                 {
                     cryptos !== undefined &&

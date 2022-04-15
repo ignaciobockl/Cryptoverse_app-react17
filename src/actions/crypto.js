@@ -29,3 +29,30 @@ export const getCryptos = ( count ) => {
         }
     }
 }
+
+export const loadCoin = ( coin ) => ({
+    type: types.criptoLoadCoin,
+    payload: coin
+});
+
+export const getCrypto = ( cryptoId ) => {
+    return async(dispatch) => {
+        try {
+            
+            const resp = await fetchWithoutTokenCoinRanking(
+                `coin/${cryptoId}?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h`,
+                undefined,
+                'GET'
+            );
+
+            const body = await resp.json();
+
+            if ( resp.ok && body.status === 'success' ) {
+                dispatch( loadCoin( body ) );
+            };
+
+        } catch (error) {
+            Swal.fire('Error', error.toString(), 'error');
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { fetchWithoutToken } from "../helpers/fetch";
+import { fetchWithoutTokenCoinRanking } from "../helpers/fetch";
 
 import { types } from "../types/types"
 
@@ -14,7 +14,7 @@ export const getCryptos = ( count ) => {
     return async(dispatch) => {
         try {
             
-            const resp = await fetchWithoutToken(
+            const resp = await fetchWithoutTokenCoinRanking(
                 `coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers=1&orderBy=marketCap&orderDirection=desc&limit=${count}&offset=0`, 
                 undefined, 
                 'GET');

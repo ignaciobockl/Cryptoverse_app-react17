@@ -17,7 +17,7 @@ const Cryptocurrencies = ({ simplified }) => {
 
     useEffect(() => {
         dispatch( getCryptos( count ) );        
-    }, []);
+    }, [ count ]);
 
     const { data, status } = useSelector( state => state.crypto );
 
@@ -27,12 +27,12 @@ const Cryptocurrencies = ({ simplified }) => {
     useEffect(() => {
         const filteredData = data?.coins.filter((coin) => coin.name.toLowerCase().includes(searchTerm.toLowerCase()));
         setCryptos( filteredData );
-    }, [ searchTerm ])
+    }, [ searchTerm ]);
     
 
     useEffect(() => {
         setCryptos( data?.coins );
-    }, [ data ])
+    }, [ count, data ]);
 
     return (
         <>

@@ -1,6 +1,6 @@
-const baseURL = process.env.REACT_APP_RAPID_API_URL;
-const host = process.env.REACT_APP_RAPID_API_HOST;
-const key = process.env.REACT_APP_RAPID_API_KEY;
+const baseURLCoinRanking = process.env.REACT_APP_RAPID_API_COINRANKING_URL;
+const hostCoinRanking = process.env.REACT_APP_RAPID_API_COINRANKING_HOST;
+const keyCoinRanking = process.env.REACT_APP_RAPID_API_COINRANKING_KEY;
 
 const baseURLBingNews = process.env.REACT_APP_RAPID_API_BING_NEWS_URL;
 const hostBingNews = process.env.REACT_APP_RAPID_API_BING_NEWS_HOST;
@@ -8,17 +8,17 @@ const keyBingNews = process.env.REACT_APP_RAPID_API_BING_NEWS_KEY;
 
 
 
-export const fetchWithoutToken = ( endpoint, data, method = 'GET' ) => {
+export const fetchWithoutTokenCoinRanking = ( endpoint, data, method = 'GET' ) => {
 
-    const url = `${ baseURL }/${ endpoint }`;
+    const url = `${ baseURLCoinRanking }/${ endpoint }`;
     
     return fetch( url, {
         // mode: 'no-cors',
         method,
         headers: {
             'Content-type': 'application/json',
-            'X-RapidAPI-Host': host,
-            'X-RapidAPI-Key': key
+            'X-RapidAPI-Host': hostCoinRanking,
+            'X-RapidAPI-Key': keyCoinRanking
         },
         body: JSON.stringify( data )
     });

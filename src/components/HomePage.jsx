@@ -12,12 +12,8 @@ const { Title } = Typography;
 
 const HomePage = () => {
 
-    const { status, data } = useSelector( state => state.crypto );
-    let stats;
-
-    if ( status === 'success') {
-        stats = data.stats;
-    }
+    const { coinsList } = useSelector( state => state.crypto );
+    const { stats } = coinsList;
 
     return (
         <>

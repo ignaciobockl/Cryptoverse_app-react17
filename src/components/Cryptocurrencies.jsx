@@ -19,13 +19,13 @@ const Cryptocurrencies = ({ simplified }) => {
         dispatch( getCryptos( count ) );        
     }, [ count ]);
 
-    const { data, status } = useSelector( state => state.crypto );
+    const { coinsList: data, status } = useSelector( state => state.crypto );
 
     const [ cryptos, setCryptos ] = useState( data?.coins );
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        const filteredData = data?.coins.filter((coin) => coin.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        const filteredData = data?.coins?.filter((coin) => coin.name.toLowerCase().includes(searchTerm.toLowerCase()));
         setCryptos( filteredData );
     }, [ searchTerm ]);
     

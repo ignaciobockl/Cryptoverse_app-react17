@@ -97,6 +97,7 @@ const CryptoDetails = () => {
             </Select>
 
             <Col className='stats-container'>
+
                 <Col className='coin-value-statistics'>
                     
                     <Col className='coin-value=statistics-heading'>
@@ -125,6 +126,36 @@ const CryptoDetails = () => {
                     }                   
 
                 </Col>
+
+                <Col className='other-stats-info'>
+                    
+                    <Col className='coin-value=statistics-heading'>
+                        <Title level={ 3 } className='coin-detailes-heading'>
+                            Other Statistics
+                        </Title>
+                        <p>
+                            An overview showing the stats of all cryptocurrencies
+                        </p>
+                    </Col>
+                    
+                    {
+                        genericStats !== undefined 
+                            ?
+                                genericStats.map(({ icon, title, value }, index) => (
+                                    <Col className='coin-stats' key={ index }>
+                                        <Col className='coin-stats-name'>
+                                            <Text>{ icon }</Text>
+                                            <Text>{ title }</Text>
+                                        </Col>
+                                        <Text className='stats'>{ value }</Text>
+                                    </Col>
+                                ))
+                            :
+                                'Loading...'
+                    }                   
+
+                </Col>
+
             </Col>
 
         </Col>

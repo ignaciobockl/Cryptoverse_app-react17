@@ -26,7 +26,7 @@ const News = ({ simplified }) => {
     }, [ newsCategory ]);
 
     const { value } = useSelector( state => state.bingNews );
-    const { data: cryptosList } = useSelector( state => state.crypto );
+    const { coinsList: cryptosList } = useSelector( state => state.crypto );
 
     if ( !value ) return 'Loading... ';
 

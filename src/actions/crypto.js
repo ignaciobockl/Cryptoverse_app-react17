@@ -56,3 +56,32 @@ export const getCrypto = ( cryptoId ) => {
         }
     }
 }
+
+const loadHistoryPrice = ( history ) => ({
+    type: types.criptoHistoryPrice,
+    payload: history
+});
+
+export const getHistoryPriceCrypto = ( cryptoId, timePeriod = '24h' ) => {
+    return async(dispatch) => {
+        try {
+            
+            const resp = await fetchWithoutTokenCoinRanking(
+                `coin/${cryptoId}/history?timePeriod=${timePeriod}`,
+                undefined,
+                'GET'
+            );
+
+            const body = await resp.json();
+
+            console.log('body', body)
+
+            if ( resp.ok && body.status === 'success' ) {
+                dispatch( loadHistoryPrice( body ) );
+            };
+
+        } catch (error) {
+            Swal.fire('Error', error.toString(), 'error');
+        }
+    }
+}

@@ -15,7 +15,8 @@ import {
     CheckOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getCrypto } from '../actions/crypto';
+import { getCrypto, getHistoryPriceCrypto } from '../actions/crypto';
+import LineChart from './LineChart';
 
 
 const { Title, Text } = Typography;
@@ -33,13 +34,19 @@ const CryptoDetails = () => {
         dispatch( getCrypto( coinId ) );
     }, [ coinId ]);
     
-    const { coinSelected } = useSelector( state => state.crypto );
+    const { coinSelected, coinHistoryPrice } = useSelector( state => state.crypto );
     const { data, status } = coinSelected;
+    console.log(coinHistoryPrice)
 
     const [ timePeriod, setTimePeriod ] = useState('7d');
 
+    useEffect(() => {
+        console.log('effect')
+        dispatch( getHistoryPriceCrypto( coinId ) );
+    }, [ timePeriod ])
+    
+
     let cryptoDetails = data?.coin || 'data.coin';
-    console.log(cryptoDetails.links )
 
     const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
 
@@ -96,6 +103,12 @@ const CryptoDetails = () => {
                     )
                 }
             </Select>
+
+            {/* <LineChart 
+                coinHistory={ coinHistory } 
+                currentPrice={ millify(cryptoDetails.price) }
+                coinName={ cryptoDetails.name }
+            /> */}
 
             <Col className='stats-container'>
 
@@ -195,5 +208,6 @@ const CryptoDetails = () => {
         </Col>
     )
 }
+
 
 export default CryptoDetails;

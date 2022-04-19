@@ -39,6 +39,7 @@ const CryptoDetails = () => {
     const [ timePeriod, setTimePeriod ] = useState('7d');
 
     let cryptoDetails = data?.coin || 'data.coin';
+    console.log(cryptoDetails.links )
 
     const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
 
@@ -156,6 +157,39 @@ const CryptoDetails = () => {
 
                 </Col>
 
+            </Col>
+
+            <Col className='coin-desc-link'>
+                <Row className='coin-desc'>
+                    <Title level={ 3 } className='coin-details-heading'>
+                        What is { cryptoDetails.name }
+                        {
+                            cryptoDetails.description !== undefined &&
+                            HTMLReactParser( cryptoDetails.description.toString() )
+                        }
+                    </Title>
+                </Row>
+                <Col className='coin-links'>
+                    <Title level={ 3 } className='coin-details-heading'>
+                        { cryptoDetails.name } Links
+                    </Title>
+                    {
+                        cryptoDetails?.links !== undefined
+                        ?
+                            cryptoDetails.links.map((link) => (
+                                <Row className='coin-link' key={ link.name }>
+                                    <Title level={ 5 } className='link-name'>
+                                        { link.type }
+                                    </Title>
+                                    <a href={ link.url } target='_blank' rel='noreferrer'>
+                                        { link.name }
+                                    </a>
+                                </Row>
+                            ))
+                        :
+                                'Loading...'
+                    }
+                </Col>
             </Col>
 
         </Col>

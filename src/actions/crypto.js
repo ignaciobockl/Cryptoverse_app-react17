@@ -74,8 +74,6 @@ export const getHistoryPriceCrypto = ( cryptoId, timePeriod = '24h' ) => {
 
             const body = await resp.json();
 
-            console.log('body', body)
-
             if ( resp.ok && body.status === 'success' ) {
                 dispatch( loadHistoryPrice( body ) );
             };

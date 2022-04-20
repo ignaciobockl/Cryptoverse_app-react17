@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCrypto, getHistoryPriceCrypto } from '../actions/crypto';
+
 import LineChart from './LineChart';
 
 
@@ -36,7 +37,6 @@ const CryptoDetails = () => {
     
     const { coinSelected, coinHistoryPrice } = useSelector( state => state.crypto );
     const { data, status } = coinSelected;
-    console.log(coinHistoryPrice)
 
     const [ timePeriod, setTimePeriod ] = useState('7d');
 
@@ -59,7 +59,7 @@ const CryptoDetails = () => {
         stats = [
             { title: 'Price to USD', value: `$ ${cryptoDetails.price && millify(cryptoDetails.price)} `, icon: <DollarCircleOutlined /> },
             { title: 'Rank', value: cryptoDetails.rank, icon: <NumberOutlined /> },
-            { title: '24h Volume', value: `$ ${cryptoDetails.volume && millify(cryptoDetails.volume) || 'no data'}`, icon: <ThunderboltOutlined /> },
+            { title: '24h Volume', value: `$ ${cryptoDetails.volume ? millify(cryptoDetails.volume) : 'no data'}`, icon: <ThunderboltOutlined /> },
             { title: 'Market Cap', value: `$ ${cryptoDetails.marketCap && millify(cryptoDetails.marketCap)}`, icon: <DollarCircleOutlined /> },
             { title: 'All-time-high(daily avg.)', value: `$ ${millify(cryptoDetails.allTimeHigh.price)}`, icon: <TrophyOutlined /> },
         ];
@@ -104,11 +104,11 @@ const CryptoDetails = () => {
                 }
             </Select>
 
-            {/* <LineChart 
-                coinHistory={ coinHistory } 
-                currentPrice={ millify(cryptoDetails.price) }
+            <LineChart 
+                coinHistory={ coinHistoryPrice } 
+                currentPrice={ cryptoDetails?.price !== undefined ? millify(cryptoDetails.price) : 0 }
                 coinName={ cryptoDetails.name }
-            /> */}
+            />
 
             <Col className='stats-container'>
 

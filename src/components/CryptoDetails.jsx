@@ -41,25 +41,22 @@ const CryptoDetails = () => {
     const [ timePeriod, setTimePeriod ] = useState('7d');
 
     useEffect(() => {
-        console.log('effect')
-        dispatch( getHistoryPriceCrypto( coinId ) );
+        dispatch( getHistoryPriceCrypto( coinId, timePeriod ) );
     }, [ timePeriod ])
     
 
     let cryptoDetails = data?.coin || 'data.coin';
 
-    const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
+    const time = ['3h', '24h', '7d', '30d', '3m', '1y', '3y', '5y'];
 
     if ( typeof(cryptoDetails) !== 'string' ) {
 
         cryptoDetails = data?.coin;
 
-        // ! cryptoDetails.24hVolume Error
-
         stats = [
             { title: 'Price to USD', value: `$ ${cryptoDetails.price && millify(cryptoDetails.price)} `, icon: <DollarCircleOutlined /> },
             { title: 'Rank', value: cryptoDetails.rank, icon: <NumberOutlined /> },
-            { title: '24h Volume', value: `$ ${cryptoDetails.volume ? millify(cryptoDetails.volume) : 'no data'}`, icon: <ThunderboltOutlined /> },
+            { title: '24h Volume', value: `$ ${cryptoDetails["24hVolume"] ? millify(cryptoDetails["24hVolume"]) : 'no data'}`, icon: <ThunderboltOutlined /> },
             { title: 'Market Cap', value: `$ ${cryptoDetails.marketCap && millify(cryptoDetails.marketCap)}`, icon: <DollarCircleOutlined /> },
             { title: 'All-time-high(daily avg.)', value: `$ ${millify(cryptoDetails.allTimeHigh.price)}`, icon: <TrophyOutlined /> },
         ];
@@ -91,7 +88,7 @@ const CryptoDetails = () => {
 
             <Select 
                 className='select-timeperiod' 
-                defaultValue='7d' 
+                defaultValue={ timePeriod } 
                 onChange={(value) => setTimePeriod(value)}
                 placeholder='Select Time Period' 
             >

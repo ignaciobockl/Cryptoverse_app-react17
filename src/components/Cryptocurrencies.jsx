@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import { getCryptos } from '../actions/crypto';
+import { getExchanges } from '../actions/exchange';
 
 
 
@@ -33,6 +34,11 @@ const Cryptocurrencies = ({ simplified }) => {
     useEffect(() => {
         setCryptos( data?.coins );
     }, [ count, data ]);
+
+    useEffect(() => {
+        dispatch( getExchanges() );
+    }, []);
+    
 
     return (
         <>

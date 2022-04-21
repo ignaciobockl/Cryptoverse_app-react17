@@ -5,6 +5,8 @@ export const types = {
     criptoLoad: '[cripto] Load All Cryptos',
     criptoLoadCoin: '[cripto] Load Coin',
 
+    exchangeLoad: '[exchange] Load All Exchanges',
+
     newsLoad: '[news] Load All Bing News',
 
 }

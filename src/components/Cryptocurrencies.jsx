@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Card, Row, Col, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import Loader from './Loader';
 
 import { getCryptos } from '../actions/crypto';
-import { getExchanges } from '../actions/exchange';
 
 
 
@@ -35,11 +35,8 @@ const Cryptocurrencies = ({ simplified }) => {
         setCryptos( data?.coins );
     }, [ count, data ]);
 
-    useEffect(() => {
-        dispatch( getExchanges() );
-    }, []);
+    if ( cryptos === undefined ) return <Loader />;
     
-
     return (
         <>
 
@@ -56,7 +53,7 @@ const Cryptocurrencies = ({ simplified }) => {
 
             <Row gutters={[ 32, 32 ]} className='crypto-card-container'>
                 {
-                    cryptos !== undefined &&
+                    // cryptos !== undefined &&
                     cryptos.map((currency) => (
                     
                         <Col xs={ 24 } sm={ 12 } lg={ 6 } className='crypto-card' key={ currency.uuid }>

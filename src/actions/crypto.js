@@ -83,3 +83,33 @@ export const getHistoryPriceCrypto = ( cryptoId, timePeriod = '24h' ) => {
         }
     }
 }
+
+const loadExchanges = ( exchange ) => ({
+    type: types.criptoExchanges,
+    payload: exchange
+});
+
+export const getExchangesByCrypto = ( cryptoId ) =>{
+    return async(dispatch) => {
+
+        try {
+            
+            const resp = await fetchWithoutTokenCoinRanking(
+                `coin/${cryptoId}/exchanges?referenceCurrencyUuid=yhjMzLPhuIDl&limit=100&offset=0&orderBy=24hVolume&orderDirection=desc`,
+                undefined,
+                'GET'
+            );
+
+            const body = await resp.json();
+
+            if ( resp.ok && body.status === 'success' ) {
+                dispatch( loadExchanges( body ) );
+            };
+
+
+        } catch (error) {
+            Swal.fire('Error', error.toString, 'error');
+        }
+
+    }
+}

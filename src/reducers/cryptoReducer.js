@@ -4,7 +4,8 @@ import { types } from "../types/types";
 const initialState = {
     coinsList: {},
     coinSelected: {},
-    coinHistoryPrice: {}
+    coinHistoryPrice: {},
+    coinExchanges: {}
 }
 
 export const cryptoReducer = ( state = initialState, action ) => {
@@ -16,7 +17,8 @@ export const cryptoReducer = ( state = initialState, action ) => {
                 ...state,
                 coinsList: state.coinsList,
                 coinSelected: state.coinSelected,
-                coinHistoryPrice: { ...action.payload }
+                coinHistoryPrice: { ...action.payload },
+                coinExchanges: state.coinExchanges
             }
         
         case types.criptoLoad:
@@ -24,7 +26,8 @@ export const cryptoReducer = ( state = initialState, action ) => {
                 ...state,
                 coinsList: { ...action.payload.data },
                 coinSelected: state.coinSelected,
-                coinHistoryPrice: state.coinHistoryPrice
+                coinHistoryPrice: state.coinHistoryPrice,
+                coinExchanges: state.coinExchanges
             }
 
         case types.criptoLoadCoin:
@@ -32,7 +35,17 @@ export const cryptoReducer = ( state = initialState, action ) => {
                 ...state,
                 coinsList: state.coinsList,
                 coinSelected: { ...action.payload },
-                coinHistoryPrice: state.coinHistoryPrice
+                coinHistoryPrice: state.coinHistoryPrice,
+                coinExchanges: state.coinExchanges
+            }
+
+        case types.criptoExchanges:
+            return {
+                ...state,
+                coinsList: state.coinsList,
+                coinSelected: state.coinSelected,
+                coinHistoryPrice: state.coinHistoryPrice,
+                coinExchanges: { ...action.payload }
             }
     
         default:

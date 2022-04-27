@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 import { HomeOutlined, MoneyCollectOutlined, BulbOutlined, FundOutlined, MenuOutlined } from '@ant-design/icons';
 
 import icon from '../images/cryptocurrency.png';
+import { useSelector } from 'react-redux';
 
 
 const Navbar = () => {
+
+    const { coinSelected } = useSelector( state => state.crypto );
 
     const [ activeMenu, setActiveMenu ] = useState(true);
     const [ screenSize, setScreenSize ] = useState(null);
@@ -59,9 +62,15 @@ const Navbar = () => {
                         <Menu.Item icon={ <FundOutlined /> }>
                             <Link to='/cryptocurrencies'>Cryptocurrencies</Link>
                         </Menu.Item>
-                        <Menu.Item icon={ <MoneyCollectOutlined /> }>
-                            <Link to='/exchanges'>Exchanges</Link>
-                        </Menu.Item>
+
+                        {/* If a cryptocurrency has not been selected, the Exchanges component will not be displayed. */}
+                        {
+                            (coinSelected.status === 'success') &&
+                                <Menu.Item icon={ <MoneyCollectOutlined /> }>
+                                    <Link to='/exchanges'>Exchanges</Link>
+                                </Menu.Item>
+                        }
+                        
                         <Menu.Item icon={ <BulbOutlined /> }>
                             <Link to='/news'>News</Link>
                         </Menu.Item>
